@@ -1,6 +1,11 @@
 import random
 #https://www.pico.net/kb/what-algorithm-for-a-tic-tac-toe-game-can-i-use-to-determine-the-best-move-for-the-ai/
+#https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
 #https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/
+
+#articles on minmax:
+#1: https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
+#2: https://www.geeksforgeeks.org/introduction-to-evaluation-function-of-minimax-algorithm-in-game-theory/
 
 #simple grid display 
 def print_board():
