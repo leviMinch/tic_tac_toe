@@ -93,11 +93,92 @@ def gameOver():
     for y in range(3):
         for x in range(3):
             if board[y][x] == "-":
-                return True
-    return False
+                return False
+    return True
 
+# def evaluate():
+#     if win_con("O"):
+#         return 10
+#     if win_con("X"):
+#         return -10
+#     return 0
+def evaluate():
+    for row in range(3):
+        if(board[row][0] == board[row][1] == board[row][2]):
+            if board[row][0] == "O":
+                return 10
+                
+        if(board[row][0] == board[row][1] == board[row][2]):
+            if board[row][0] == "X":
+                return -10
+    for col in range(3) :
+        if (board[0][col] == board[1][col] and board[1][col] == board[2][col]) :
+            if (board[0][col] == "O") :
+                return 10
+            elif (board[0][col] == "X") :
+                return -10
+ 
+    # Checking for Diagonals for X or O victory.
+    if (board[0][0] == board[1][1] and board[1][1] == board[2][2]) :
+        if (board[0][0] == "O") :
+            return 10
+
+        elif (board[0][0] == "X") :
+            return -10
+ 
+    if (board[0][2] == board[1][1] and board[1][1] == board[2][0]) :
+     
+        if (board[0][2] == "O") :
+            return 10
+        elif (board[0][2] == "X") :
+            return -10
     
+def minimax(depth, ismax):
+    score = evaluate()
 
+    if score == 10:
+        return score
+    if score == -10:
+        return score
+    if gameOver():
+        return 0
+    
+    if (ismax):
+        best = -1000
+        for i in range(3):
+            for j in range(3):
+                if board[i][j]== "-":
+                    board[i][j] = "O"
+                    best  = max(best, minimax(depth +1, not ismax))
+                    board[i][j] ="-"
+        return best
+    
+    else:
+        best = 1000
+        for i in range(3):
+            for j in range(3):
+                if board[i][j] =="-":
+                    board[i][j] = "O"
+                    best = min(best, minimax(depth +1, not ismax))
+                    board[i][j] = "-"
+        return best
+
+def makeMove():
+    best_val = -1000
+    best_move = (-1,-1)
+
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == "-":
+                board[i][j] = "O"
+                move_val = minimax(0, False)
+                board[i][j]= "-"
+
+                if(move_val > best_val):
+                    best_move = (i,j)
+                    best_val = move_val
+    board[i][j] = "O"
+    #print("The best move is:", best_move, "with a value of:", best_val)
 
 def main():
     print("-----------------------")
@@ -110,7 +191,7 @@ def main():
         location = input()
         #check to see if input is valid
         if (location[0] == "1" or location[0] == "2" or location[0] == "3") and (location[2] == "1" or location[2] == "2" or location[2] == "3") :
-            #converts input into correction location 
+            #converts input into correct location 
             location_x = int(location[0]) -1
             location_y = int(location[2]) -1
             #checks to see if spot is already taken 
@@ -118,7 +199,8 @@ def main():
                 board[location_x][location_y] = "X"
                 #checks to see if taking this spot results in a tie
                 if not tie() or not win_con("X"):
-                    take_turn()
+                    ##take_turn()
+                    makeMove()
                 else:
                     break
             else:
