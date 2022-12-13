@@ -127,6 +127,63 @@ def game_over():
     win_analy()
     return True
 
+
+
+##MIN MAX
+def min_max(board,depth, is_turn):
+    score = evaluate(board)
+    if score == 1:
+        return score
+    
+    elif score == -1:
+        return score
+    
+    elif game_over():
+        return 0 
+    if(is_turn):
+        best = -1000
+
+        for i in range(3):
+            for j in range(3):
+
+                if board[i][j] == default:
+                    board[i][j] = computer
+                    best = max(best, min_max(board, depth+1, not is_turn))
+                    board[i][j] = default
+        return best
+    else: 
+        best = 1000
+
+        for i in range(3):
+            for j in range(3):
+
+                if board[i][j] == default:
+
+                    board[i][j] = player
+                    best = min(best, min_max(board, depth+1, not is_turn))
+                    board[i][j] = default
+        return best
+
+def find_best_move():
+    best_value = -1000
+    best_move = (-1,-1)
+
+    for i in range(3):
+        for j in range(3):
+
+            if board[i][j] == default:
+                board[i][j] = computer
+                move_val = min_max(board, 0, False)
+                board[i][j] = default
+
+                if move_val > best_value:
+                    best_move = (i,j)
+                    best_value = move_val
+    
+    x = best_move[0]
+    y = best_move[1]
+    board[x][y] = computer
+##END OF MIN MAX
 #function picks a random open spot to claim for the computer
 def take_turn():
     x = random.randint(0,2)
