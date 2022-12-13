@@ -2,6 +2,7 @@ import random
 from os import system
 from rich import print
 
+
 player, computer, default = "o", "x", "-"
 global one, two, three, winner
 
