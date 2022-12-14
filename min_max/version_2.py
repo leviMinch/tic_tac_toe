@@ -24,6 +24,7 @@ def board_to_string():
     return board_text
 
 def board_to_string_color():
+    global one,two,three,winner
     if winner == "player" :
         for i in range(3):
             for j in range(3):
@@ -126,7 +127,6 @@ def game_over():
     #if every position is taken then the game must be over
     win_analy()
     return True
-
 
 
 ##MIN MAX
@@ -247,6 +247,6 @@ def user_turn_error():
         user_turn_error()
 
 while not game_over():
-    user_turn()
+    take_turn()
     if not game_over():
-        take_turn()
+        user_turn()
