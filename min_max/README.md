@@ -1,0 +1,3 @@
+Very similiar to code to the basic game. Only changed who starts the game and how the computer takes its turn. The Min Max algorithim is a game alogithim that uses data trees to choose the move that will result in the highest likelyhood of winning. In order to accomplish this recursion is used to paint out the data trees with: a loss = -, a win = +, and a tie = 0. The move that then has the highest positive outcome is then inacted. However, my algorithim does not currently fully work resulting in incorrect judgement on the computers side. 
+
+further reading on minimax (the main recourse I learned in order to create this project): https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
